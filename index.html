@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Score Cekih by Sadewa Corp</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body class="dark-mode">
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <img src="classic-512.png" alt="Logo Sadewa Corp" class="loading-logo">
+            <h1 class="loading-title">Score Cekih</h1>
+            <p class="loading-subtitle">by Sadewa Corp</p>
+            <div class="loading-bar-container">
+                <div id="loading-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div id="app-container">
+        <!-- Top Banner Header -->
+        <header class="app-header">
+            <div class="header-main">
+                <div class="header-left">
+                    <img src="classic-192.png" alt="PWA Icon" class="header-icon">
+                    <div>
+                        <h2>Score Cekih</h2>
+                        <span class="sub-brand">Sadewa Corp</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button id="btn-fullscreen" title="Layar Penuh" class="icon-btn">📺</button>
+                    <button id="btn-theme" title="Ubah Tema" class="icon-btn">🌓</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dynamic Content Screen -->
+        <main id="main-content">
+            
+            <!-- SCREEN 1: Setup Game / Ganti Ronde -->
+            <section id="screen-setup" class="screen-section hidden">
+                <div class="card premium-card">
+                    <h3 id="setup-title" class="section-title">Setup Ronde Baru</h3>
+                    <form id="form-setup" onsubmit="return false;">
+                        <div class="form-group">
+                            <label for="target-point">Target Poin Kemenangan (Bintang)</label>
+                            <select id="target-point" class="form-control">
+                                <option value="500">500</option>
+                                <option value="750">750</option>
+                                <option value="1000" selected>1000</option>
+                                <option value="1500">1500</option>
+                            </select>
+                        </div>
+                        
+                        <div class="player-input-grid">
+                            <div class="form-group">
+                                <label for="p1-name">Nama Pemain A</label>
+                                <input type="text" id="p1-name" class="form-control" placeholder="Pemain A" required value="Pemain A">
+                            </div>
+                            <div class="form-group">
+                                <label for="p2-name">Nama Pemain B</label>
+                                <input type="text" id="p2-name" class="form-control" placeholder="Pemain B" required value="Pemain B">
+                            </div>
+                            <div class="form-group">
+                                <label for="p3-name">Nama Pemain C</label>
+                                <input type="text" id="p3-name" class="form-control" placeholder="Pemain C" required value="Pemain C">
+                            </div>
+                            <div class="form-group">
+                                <label for="p4-name">Nama Pemain D</label>
+                                <input type="text" id="p4-name" class="form-control" placeholder="Pemain D" required value="Pemain D">
+                            </div>
+                        </div>
+                        
+                        <button type="button" id="btn-start-game" class="btn btn-primary btn-block">MULAI PERMAINAN</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- SCREEN 2: Gameplay Dashboard -->
+            <section id="screen-gameplay" class="screen-section hidden">
+                <!-- Status Bar Ronde & Puteran -->
+                <div class="game-status-bar">
+                    <div class="status-meta">
+                        <span class="badge badge-primary" id="display-ronde">Ronde 1</span>
+                        <span class="badge badge-secondary" id="display-puteran">Puteran 1</span>
+                        <span class="target-info">Target: <strong id="display-target">1000</strong></span>
+                    </div>
+                    <div class="status-actions">
+                        <button id="btn-ganti-ronde" class="btn btn-warning btn-sm">GANTI RONDE</button>
+                    </div>
+                </div>
+
+                <!-- Cards Grid Pemain -->
+                <div class="players-grid" id="players-card-container">
+                    <!-- Dynamic Render JavaScript -->
+                </div>
+
+                <!-- Input Skor Puteran Card -->
+                <div class="card premium-card input-score-card">
+                    <div class="card-header-flex">
+                        <h4>Input Tambah Skor Puteran</h4>
+                        <button id="btn-screenshot" class="btn btn-info btn-sm">📸 SCREENSHOT</button>
+                    </div>
+                    <form id="form-input-skor" onsubmit="return false;">
+                        <div class="score-inputs-layout">
+                            <div class="score-input-box">
+                                <label id="lbl-p1" for="score-p1">Pemain A</label>
+                                <input type="number" id="score-p1" class="form-control score-field" value="0">
+                            </div>
+                            <div class="score-input-box">
+                                <label id="lbl-p2" for="score-p2">Pemain B</label>
+                                <input type="number" id="score-p2" class="form-control score-field" value="0">
+                            </div>
+                            <div class="score-input-box">
+                                <label id="lbl-p3" for="score-p3">Pemain C</label>
+                                <input type="number" id="score-p3" class="form-control score-field" value="0">
+                            </div>
+                            <div class="score-input-box">
+                                <label id="lbl-p4" for="score-p4">Pemain D</label>
+                                <input type="number" id="score-p4" class="form-control score-field" value="0">
+                            </div>
+                        </div>
+                        <button type="button" id="btn-simpan-puteran" class="btn btn-success btn-block">SIMPAN PUTERAN</button>
+                    </form>
+                </div>
+
+                <!-- Navigation Tabs Menu -->
+                <nav class="navigation-tabs">
+                    <button class="tab-btn active" data-tab="tab-panel-ranking">🏆 Ranking</button>
+                    <button class="tab-btn" data-tab="tab-panel-history">📜 History</button>
+                    <button class="tab-btn" data-tab="tab-panel-achievement">🎖️ Medal</button>
+                    <button class="tab-btn" data-tab="tab-panel-statistik">📊 Stat</button>
+                    <button class="tab-btn" data-tab="tab-panel-arsip">👥 Arsip</button>
+                </nav>
+
+                <!-- Panels Area -->
+                <div class="tabs-panels-container">
+                    
+                    <!-- Tab Ranking -->
+                    <div id="tab-panel-ranking" class="tab-panel active">
+                        <div class="card panel-card">
+                            <h3>Papan Peringkat Realtime</h3>
+                            <div class="table-responsive">
+                                <table class="premium-table" id="table-ranking">
+                                    <thead>
+                                        <tr>
+                                            <th>Pos</th>
+                                            <th>Nama</th>
+                                            <th>Skor</th>
+                                            <th>Bintang</th>
+                                            <th>Burn</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab History -->
+                    <div id="tab-panel-history" class="tab-panel">
+                        <div class="card panel-card">
+                            <h3>Log Riwayat Puteran & Ronde</h3>
+                            <div id="history-logs-container" class="logs-container"></div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Achievement -->
+                    <div id="tab-panel-achievement" class="tab-panel">
+                        <div class="card panel-card">
+                            <h3>Pencapaian Medali</h3>
+                            <div id="achievement-list-container" class="achievement-grid"></div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Statistik -->
+                    <div id="tab-panel-statistik" class="tab-panel">
+                        <div class="card panel-card">
+                            <h3>Statistik Ronde Ini</h3>
+                            <div class="table-responsive">
+                                <table class="premium-table" id="table-statistik">
+                                    <thead>
+                                        <tr>
+                                            <th>Pemain</th>
+                                            <th>Max Skor</th>
+                                            <th>Bakar</th>
+                                            <th>Dibakar</th>
+                                            <th>Triple</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Arsip -->
+                    <div id="tab-panel-arsip" class="tab-panel">
+                        <div class="card panel-card">
+                            <div class="card-header-flex">
+                                <h3>Arsip Statistik Permanen</h3>
+                                <button id="btn-hapus-arsip" class="btn btn-danger btn-sm">Hapus Arsip Pemain</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="premium-table" id="table-arsip-permanen">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama Pemain</th>
+                                            <th>Total Bintang</th>
+                                            <th>Total Bakar</th>
+                                            <th>Total Dibakar</th>
+                                            <th>Triple Burn</th>
+                                            <th>Highest Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer Control Center -->
+        <footer class="app-footer">
+            <button id="btn-reset-game" class="btn btn-danger btn-sm">RESET GAME</button>
+        </footer>
+    </div>
+
+    <!-- Layer Animasi Api / Burn FX -->
+    <div id="burn-animation-overlay" class="burn-overlay hidden">
+        <div class="fire-container">
+            <div class="fire-particle"></div>
+            <div class="fire-particle"></div>
+            <div class="fire-particle"></div>
+        </div>
+        <div class="burn-banner-text">
+            <h2 id="burn-announcement">BURNED!</h2>
+        </div>
+    </div>
+
+    <!-- Layer Animasi Bintang Jatuh / Star FX -->
+    <div id="star-animation-overlay" class="star-overlay hidden">
+        <div class="star-fall-container" id="star-fall-zone"></div>
+        <div class="star-banner-text">
+            <h2 id="star-announcement">DEWA JUDI!</h2>
+        </div>
+    </div>
+
+    <!-- Element Penampung Screenshot Hidden Clone Area -->
+    <div id="screenshot-clone-zone" style="position: absolute; top: -9999px; left: -9999px; width: 400px; background: #0f172a; padding: 20px;"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
